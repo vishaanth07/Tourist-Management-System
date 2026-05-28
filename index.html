@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel & Tourist Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="auth-page">
+        <div class="auth-container">
+            <div class="auth-header">
+                <i class="fas fa-plane"></i>
+                <h1>TravelHub</h1>
+                <p>Welcome back! Please sign in to your account</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" onclick="showSignup()">Sign up here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signupPage" class="auth-page" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-header">
+                <i class="fas fa-plane"></i>
+                <h1>TravelHub</h1>
+                <p>Create your account to get started</p>
+            </div>
+            <form id="signupForm" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupFirstName">First Name</label>
+                        <input type="text" id="signupFirstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLastName">Last Name</label>
+                        <input type="text" id="signupLastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Phone Number</label>
+                    <input type="tel" id="signupPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" onclick="showLogin()">Sign in here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" style="display: none;">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-plane"></i>
+                    <span>TravelHub</span>
+                </div>
+                <div class="nav-user">
+                    <span id="userName">Welcome, User</span>
+                    <button onclick="logout()" class="btn btn-outline">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="container">
+                    <div class="dashboard-header">
+                        <h1>Welcome to Your Dashboard</h1>
+                        <p>Plan your perfect trip with our travel management system</p>
+                    </div>
+                    
+                    <!-- Location Selection -->
+                    <div class="location-selection">
+                        <h2>Select Your Destination</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country" name="country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="usa">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="france">France</option>
+                                    <option value="italy">Italy</option>
+                                    <option value="spain">Spain</option>
+                                    <option value="japan">Japan</option>
+                                    <option value="australia">Australia</option>
+                                    <option value="india">India</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State/City</label>
+                                <select id="state" name="state" required>
+                                    <option value="">Select State/City</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Selection -->
+                    <div class="service-selection">
+                        <h2>Choose Your Services</h2>
+                        <div class="service-cards">
+                            <div class="service-card" onclick="selectService('hotels')">
+                                <div class="service-image">
+                                    <img src="C:\Users\Vishaanth K\OneDrive\Desktop\travel-system\h2.jpeg" alt="Hotels" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
+                                </div>
+                                <h3>Hotels</h3>
+                                <p>Find and book the perfect accommodation</p>
+                            </div>
+                            <div class="service-card" onclick="selectService('transport')">
+                                <div class="service-image">
+                                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop&crop=center" alt="Transport" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
+                                </div>
+                                <h3>Transport</h3>
+                                <p>Book your transportation needs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hotel Selection Section -->
+            <section id="hotels" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <button class="btn btn-back" onclick="showSection('dashboard')">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <h2>Available Hotels in <span id="selectedCity">Your City</span></h2>
+                    </div>
+                    
+                    <div class="hotels-grid" id="hotelsGrid">
+                        <!-- Hotels will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hotel Booking Section -->
+            <section id="hotelBooking" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <button class="btn btn-back" onclick="showSection('hotels')">
+                            <i class="fas fa-arrow-left"></i> Back to Hotels
+                        </button>
+                        <h2>Book Your Hotel</h2>
+                    </div>
+                    
+                    <div class="booking-container">
+                        <div class="hotel-details" id="selectedHotelDetails">
+                            <!-- Hotel details will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="booking-form">
+                            <form id="hotelBookingForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="guests">Number of Guests</label>
+                                        <select id="guests" name="guests" required>
+                                            <option value="1">1 Guest</option>
+                                            <option value="2">2 Guests</option>
+                                            <option value="3">3 Guests</option>
+                                            <option value="4">4 Guests</option>
+                                            <option value="5">5 Guests</option>
+                                            <option value="6">6 Guests</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rooms">Number of Rooms</label>
+                                        <select id="rooms" name="rooms" required>
+                                            <option value="1">1 Room</option>
+                                            <option value="2">2 Rooms</option>
+                                            <option value="3">3 Rooms</option>
+                                            <option value="4">4 Rooms</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkIn">Check-in Date</label>
+                                        <input type="date" id="checkIn" name="checkIn" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkOut">Check-out Date</label>
+                                        <input type="date" id="checkOut" name="checkOut" required>
+                                    </div>
+                                </div>
+                                <div class="price-summary">
+                                    <h3>Price Summary</h3>
+                                    <div class="price-details">
+                                        <div class="price-item">
+                                            <span>Base Price per night:</span>
+                                            <span id="basePrice">$0</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Number of nights:</span>
+                                            <span id="nights">0</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Number of rooms:</span>
+                                            <span id="roomCount">0</span>
+                                        </div>
+                                        <div class="price-item total">
+                                            <span>Total Amount:</span>
+                                            <span id="totalPrice">$0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large">Book Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transport Selection Section -->
+            <section id="transport" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <button class="btn btn-back" onclick="showSection('dashboard')">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <h2>Transportation Options</h2>
+                    </div>
+                    
+                    <div class="transport-grid" id="transportGrid">
+                        <!-- Transport options will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transport Booking Section -->
+            <section id="transportBooking" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <button class="btn btn-back" onclick="showSection('transport')">
+                            <i class="fas fa-arrow-left"></i> Back to Transport
+                        </button>
+                        <h2>Book Your Transport</h2>
+                    </div>
+                    
+                    <div class="booking-container">
+                        <div class="transport-details" id="selectedTransportDetails">
+                            <!-- Transport details will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="booking-form">
+                            <form id="transportBookingForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="fromLocation">From</label>
+                                        <input type="text" id="fromLocation" name="fromLocation" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="toLocation">To</label>
+                                        <input type="text" id="toLocation" name="toLocation" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="departureDate">Departure Date</label>
+                                        <input type="date" id="departureDate" name="departureDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="returnDate">Return Date (Optional)</label>
+                                        <input type="date" id="returnDate" name="returnDate">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="passengers">Number of Passengers</label>
+                                    <select id="passengers" name="passengers" required>
+                                        <option value="1">1 Passenger</option>
+                                        <option value="2">2 Passengers</option>
+                                        <option value="3">3 Passengers</option>
+                                        <option value="4">4 Passengers</option>
+                                        <option value="5">5 Passengers</option>
+                                        <option value="6">6 Passengers</option>
+                                    </select>
+                                </div>
+                                <div class="price-summary">
+                                    <h3>Price Summary</h3>
+                                    <div class="price-details">
+                                        <div class="price-item">
+                                            <span>Base Price:</span>
+                                            <span id="transportBasePrice">$0</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Number of passengers:</span>
+                                            <span id="passengerCount">0</span>
+                                        </div>
+                                        <div class="price-item total">
+                                            <span>Total Amount:</span>
+                                            <span id="transportTotalPrice">$0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large">Book Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transaction Confirmation Section -->
+            <section id="transactionConfirm" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Confirm Your Transaction</h2>
+                    </div>
+                    
+                    <div class="transaction-container">
+                        <div class="booking-summary-card">
+                            <h3>Booking Summary</h3>
+                            <div id="transactionSummary"></div>
+                        </div>
+                        
+                        <div class="payment-form">
+                            <h3>Payment Information</h3>
+                            <form id="transactionForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                                
+                                <div class="payment-section">
+                                    <h4>Payment Details</h4>
+                                    <div class="form-group">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiryDate">Expiry Date</label>
+                                            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="total-amount">
+                                    <h3>Total Amount: $<span id="totalAmount">0</span></h3>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-large">Complete Payment</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transaction Success Section -->
+            <section id="transactionSuccess" class="section">
+                <div class="container">
+                    <div class="success-container">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Transaction Successful!</h2>
+                        <p>Your booking has been confirmed. You will receive a confirmation email shortly.</p>
+                        
+                        <div class="booking-details">
+                            <h3>Booking Details</h3>
+                            <div id="successBookingDetails"></div>
+                        </div>
+                        
+                        <div class="success-actions">
+                            <button class="btn btn-primary" onclick="showSection('dashboard')">Back to Dashboard</button>
+                            <button class="btn btn-secondary" onclick="printBooking()">Print Booking</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p>Processing your booking...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Booking Successful!</h3>
+            <p>Your booking has been confirmed. You will receive a confirmation email shortly.</p>
+            <button class="btn btn-primary" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Booking Failed</h3>
+            <p id="errorMessage">There was an error processing your booking. Please try again.</p>
+            <button class="btn btn-primary" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
